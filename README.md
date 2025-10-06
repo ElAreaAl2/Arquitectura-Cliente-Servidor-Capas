@@ -130,4 +130,10 @@ find . -name '__pycache__' -type d -prune -exec rm -rf {} +
 * `quick_test.py`: cliente gRPC de ejemplo para verificar el método `Ping` y
   el autocompletado de ciudades directamente contra el servidor gRPC.
 * `sad_app/seed_cities.py`: inicializa la colección de ciudades en MongoDB.
+
+## Solución de problemas
+
+* **`ModuleNotFoundError: No module named 'db'` al ejecutar `python -m sad_app.seed_cities`**: ejecuta el comando desde la raíz del repositorio y asegúrate de correrlo como módulo (incluyendo el prefijo `-m`). Esto habilita las importaciones relativas del paquete `sad_app`.
+
+* **`ModuleNotFoundError: No module named 'wishlist_pb2'` al iniciar `python -m sad_app.server`**: esto sucede si los stubs gRPC se regeneraron con la importación absoluta por defecto (`import wishlist_pb2`). Restaura la versión incluida en el repo (`git checkout -- sad_app/generated`) o verifica que las primeras líneas de `sad_app/generated/wishlist_pb2_grpc.py` usen `from . import wishlist_pb2 as wishlist__pb2`. Después vuelve a ejecutar el servidor.
 ```
