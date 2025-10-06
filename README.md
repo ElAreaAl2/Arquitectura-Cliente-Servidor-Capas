@@ -57,6 +57,7 @@ PY
 * `SAD_PORT`: puerto del servidor gRPC (por defecto `50051`).
 * `SAD_GRPC_TARGET`: dirección del servidor gRPC usada por el gateway REST (por defecto `localhost:50051`).
 * `SAD_REST_PORT`: puerto del gateway REST (por defecto `8000`).
+* `SAD_CORS_ORIGINS`: lista separada por comas con los orígenes permitidos para CORS (usa `*` por defecto para aceptar cualquiera).
 
 Puedes crear un archivo `.env` en la raíz con estas variables si lo prefieres.
 

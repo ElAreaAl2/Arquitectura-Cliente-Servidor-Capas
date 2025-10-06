@@ -13,6 +13,7 @@ from typing import Dict, List, Optional
 
 import grpc
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
@@ -31,6 +32,21 @@ app = FastAPI(
         "deseos y autocompletado de ciudades."
     ),
     version="1.0.0",
+)
+
+
+def _parse_origins(value: str) -> List[str]:
+    if value.strip() == "*":
+        return ["*"]
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_parse_origins(os.getenv("SAD_CORS_ORIGINS", "*")),
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
